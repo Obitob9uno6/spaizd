@@ -33,6 +33,9 @@ export function CheckoutForm() {
 
   const supabase = createClientComponentClient()
 
+  // Safe total calculation with fallback
+  const safeTotal = typeof total === 'number' && !isNaN(total) ? total : 0
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setLoading(true)
@@ -43,7 +46,7 @@ export function CheckoutForm() {
         .from("orders")
         .insert({
           user_id: (await supabase.auth.getUser()).data.user?.id,
-          total_amount: total,
+          total_amount: safeTotal,
           status: "pending",
           shipping_address: {
             firstName: formData.firstName,
@@ -54,12 +57,12 @@ export function CheckoutForm() {
             zipCode: formData.zipCode,
             country: formData.country,
           },
-          items: items.map((item) => ({
+          items: items?.map((item) => ({
             product_id: item.id,
             variant_id: item.variantId,
             quantity: item.quantity,
             price: item.price,
-          })),
+          })) || [],
         })
         .select()
         .single()
@@ -67,14 +70,16 @@ export function CheckoutForm() {
       if (error) throw error
 
       // Create order items
-      for (const item of items) {
-        await supabase.from("order_items").insert({
-          order_id: order.id,
-          product_id: item.id,
-          variant_id: item.variantId,
-          quantity: item.quantity,
-          price: item.price,
-        })
+      if (items && items.length > 0) {
+        for (const item of items) {
+          await supabase.from("order_items").insert({
+            order_id: order.id,
+            product_id: item.id,
+            variant_id: item.variantId,
+            quantity: item.quantity,
+            price: item.price,
+          })
+        }
       }
 
       // In a real implementation, this would integrate with Stripe
@@ -292,10 +297,10 @@ export function CheckoutForm() {
 
       <Button
         type="submit"
-        disabled={loading || items.length === 0}
+        disabled={loading || !items || items.length === 0}
         className="w-full bg-led-green hover:bg-led-green/90 text-black font-semibold py-3"
       >
-        {loading ? "Processing..." : `Complete Order - $${total.toFixed(2)}`}
+        {loading ? "Processing..." : `Complete Order - $${safeTotal.toFixed(2)}`}
       </Button>
     </form>
   )
