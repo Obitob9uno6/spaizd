@@ -1,28 +1,36 @@
-import { createServerClient } from "@supabase/ssr"
-import { cookies } from "next/headers"
+// Mock server Supabase client for development
+export function createClient() {
+  const createQueryBuilder = () => {
+    const queryBuilder = {
+      data: [],
+      error: null,
+      eq: (column: string, value: any) => queryBuilder,
+      lt: (column: string, value: any) => queryBuilder,
+      gt: (column: string, value: any) => queryBuilder,
+      order: (column: string, options?: any) => queryBuilder,
+      limit: (count: number) => queryBuilder,
+      single: async () => ({ data: null, error: null }),
+      then: async (resolve: any) => resolve({ data: [], error: null }),
+    }
+    return queryBuilder
+  }
 
-/**
- * Especially important if using Fluid compute: Don't put this client in a
- * global variable. Always create a new client within each function when using
- * it.
- */
-export async function createClient() {
-  const cookieStore = await cookies()
-
-  return createServerClient(process.env.NEXT_PUBLIC_SUPABASE_URL!, process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!, {
-    cookies: {
-      getAll() {
-        return cookieStore.getAll()
-      },
-      setAll(cookiesToSet) {
-        try {
-          cookiesToSet.forEach(({ name, value, options }) => cookieStore.set(name, value, options))
-        } catch {
-          // The "setAll" method was called from a Server Component.
-          // This can be ignored if you have middleware refreshing
-          // user sessions.
-        }
-      },
+  return {
+    auth: {
+      getUser: async () => ({ data: { user: null }, error: null }),
+      getSession: async () => ({ data: { session: null }, error: null }),
     },
-  })
+    from: (table: string) => ({
+      select: (columns?: string) => createQueryBuilder(),
+      insert: (values: any) => ({
+        select: () => createQueryBuilder(),
+      }),
+      update: (values: any) => ({
+        eq: (column: string, value: any) => createQueryBuilder(),
+      }),
+      delete: () => ({
+        eq: (column: string, value: any) => createQueryBuilder(),
+      }),
+    }),
+  }
 }

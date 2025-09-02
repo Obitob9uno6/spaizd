@@ -4,7 +4,7 @@ import { GeistSans } from "geist/font/sans"
 import { GeistMono } from "geist/font/mono"
 import { Analytics } from "@vercel/analytics/next"
 import "./globals.css"
-import { Navigation } from "@/components/navigation"
+import GrowRoomEntrance from "@/components/grow-room-entrance"
 import { Footer } from "@/components/footer"
 import { AgeVerificationModal } from "@/components/age-verification-modal"
 import { Suspense } from "react"
@@ -25,7 +25,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={`font-sans ${GeistSans.variable} ${GeistMono.variable} antialiased`}>
         <Suspense fallback={<div>Loading...</div>}>
-          <Navigation />
+          <GrowRoomEntrance />
           <main className="min-h-screen">{children}</main>
           <Footer />
           <AgeVerificationModal />
