@@ -43,40 +43,28 @@ const GrowRoomEntrance = () => {
     useEffect(() => {
       if (isOn) {
         setTimeout(() => setWarmupPhase(1), delay * 1000)
-        setTimeout(() => setWarmupPhase(2), delay * 1000 + 500)
-        setTimeout(() => setWarmupPhase(3), delay * 1000 + 1000)
-        setTimeout(() => setWarmupPhase(4), delay * 1000 + 1500)
-        setTimeout(() => setWarmupPhase(5), delay * 1000 + 2000) // Full 1000W
+        setTimeout(() => setWarmupPhase(2), delay * 1000 + 800)
+        setTimeout(() => setWarmupPhase(3), delay * 1000 + 1600)
+        setTimeout(() => setWarmupPhase(4), delay * 1000 + 2400)
+        setTimeout(() => setWarmupPhase(5), delay * 1000 + 3200) // Full intensity
       }
     }, [isOn, delay])
 
     const toggleDropdown = () => {
       setCordPulled(true)
       setTimeout(() => setCordPulled(false), 200)
-
-      if (label === "Drops") {
-        setShowComingSoon(true)
-        return
-      }
-
       setShowDropdown(!showDropdown)
     }
 
     const handleNavigation = (item: string) => {
-      if (label === "Drops") {
-        setShowComingSoon(true)
-        return
-      }
-
       let path = "/"
-      if (label === "Shop") path = "/shop"
-      else if (label === "VIP") path = "/vip"
+      if (label === "Products") path = "/shop"
+      else if (label === "Solutions") path = "/solutions"
+      else if (label === "Support") path = "/support"
       else if (label === "About") path = "/about"
-      else if (label === "Account") {
-        if (item === "Cart") path = "/cart"
-        else if (item === "Search") path = "/shop"
-        else path = "/account"
-      }
+      else if (label === "Contact") path = "/contact"
+      else if (label === "Lighting Solutions") path = "/lighting"
+      else if (label === "Get Quote") path = "/quote"
 
       router.push(path)
       setShowDropdown(false)
@@ -87,80 +75,167 @@ const GrowRoomEntrance = () => {
         case 0:
           return 0
         case 1:
-          return 20 // 200W
+          return 25
         case 2:
-          return 40 // 400W
+          return 50
         case 3:
-          return 60 // 600W
+          return 75
         case 4:
-          return 80 // 800W
+          return 90
         case 5:
-          return 100 // 1000W
+          return 100
         default:
           return 0
       }
     }
 
     return (
-      <div className="relative" style={{ width: "140px" }}>
-        {/* Ceiling mount */}
-        <div className="flex flex-col items-center">
-          <div
-            className="rounded-full shadow-lg"
-            style={{
-              width: "12px",
-              height: "12px",
-              background: "radial-gradient(circle at 30% 30%, #999999, #555555)",
-              boxShadow: "inset -1px -1px 2px rgba(0,0,0,0.5)",
-            }}
-          />
-          <div
-            style={{
-              width: "3px",
-              height: "25px",
-              background: "linear-gradient(to right, #444444, #777777, #444444)",
-            }}
-          />
+      <div className="relative" style={{ width: "180px" }}>
+        {/* Suspension cables */}
+        <div className="flex justify-center mb-2">
+          <div className="flex space-x-8">
+            <div
+              style={{
+                width: "2px",
+                height: "30px",
+                background: "linear-gradient(to bottom, #666666, #444444)",
+                boxShadow: "1px 0 2px rgba(0,0,0,0.3)",
+              }}
+            />
+            <div
+              style={{
+                width: "2px",
+                height: "30px",
+                background: "linear-gradient(to bottom, #666666, #444444)",
+                boxShadow: "1px 0 2px rgba(0,0,0,0.3)",
+              }}
+            />
+          </div>
         </div>
 
-        {/* Professional light fixture */}
-        <div className="relative" style={{ width: "140px", height: "50px" }}>
+        {/* Professional grow light fixture - rectangular reflector hood */}
+        <div className="relative" style={{ width: "180px", height: "80px" }}>
+          {/* Ballast unit (left side) */}
           <div
-            className="absolute inset-0 rounded-lg"
+            className="absolute left-0 top-0 rounded-sm"
             style={{
-              background: "linear-gradient(135deg, #f0f0f0 0%, #e0e0e0 25%, #d0d0d0 50%, #c0c0c0 75%, #b0b0b0 100%)",
-              boxShadow: "0 6px 20px rgba(0,0,0,0.3)",
+              width: "35px",
+              height: "80px",
+              background: "linear-gradient(135deg, #e8e8e8 0%, #d0d0d0 25%, #c8c8c8 50%, #b8b8b8 75%, #a8a8a8 100%)",
+              boxShadow: "inset -2px 0 4px rgba(0,0,0,0.2), 2px 0 8px rgba(0,0,0,0.3)",
+              border: "1px solid #999999",
             }}
           >
-            {/* 1000W DE Lamp */}
+            {/* Power indicator LED */}
+            <div
+              className="absolute top-2 left-1/2 transform -translate-x-1/2 rounded-full transition-all duration-500"
+              style={{
+                width: "6px",
+                height: "6px",
+                background: warmupPhase > 0 ? "#00ff00" : "#333333",
+                boxShadow: warmupPhase > 0 ? "0 0 8px #00ff00" : "none",
+              }}
+            />
+            {/* Ventilation grilles */}
+            <div className="absolute bottom-2 left-1 right-1 space-y-1">
+              {[...Array(8)].map((_, i) => (
+                <div
+                  key={i}
+                  style={{
+                    height: "1px",
+                    background: "linear-gradient(to right, transparent, #666666, transparent)",
+                  }}
+                />
+              ))}
+            </div>
+          </div>
+
+          {/* Main reflector hood */}
+          <div
+            className="absolute left-8 top-0 rounded-lg"
+            style={{
+              width: "140px",
+              height: "80px",
+              background:
+                "linear-gradient(135deg, #f5f5f5 0%, #e8e8e8 15%, #d8d8d8 30%, #e0e0e0 45%, #d5d5d5 60%, #c8c8c8 75%, #b8b8b8 90%, #a8a8a8 100%)",
+              boxShadow: "0 8px 25px rgba(0,0,0,0.4), inset 0 2px 4px rgba(255,255,255,0.3)",
+              border: "1px solid #aaaaaa",
+            }}
+          >
+            {/* Hammered metal texture pattern */}
+            <div
+              className="absolute inset-2 rounded"
+              style={{
+                background: `
+                  radial-gradient(circle at 20% 30%, rgba(255,255,255,0.4) 1px, transparent 1px),
+                  radial-gradient(circle at 60% 20%, rgba(0,0,0,0.1) 1px, transparent 1px),
+                  radial-gradient(circle at 80% 60%, rgba(255,255,255,0.3) 1px, transparent 1px),
+                  radial-gradient(circle at 30% 80%, rgba(0,0,0,0.1) 1px, transparent 1px),
+                  radial-gradient(circle at 70% 40%, rgba(255,255,255,0.2) 1px, transparent 1px)
+                `,
+                backgroundSize: "15px 15px, 12px 12px, 18px 18px, 14px 14px, 16px 16px",
+              }}
+            />
+
+            {/* Double-ended lamp tube */}
             <div
               className="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 rounded-full transition-all duration-1000"
               style={{
-                width: "32px",
-                height: "32px",
+                width: "120px",
+                height: "12px",
                 background:
                   warmupPhase > 0
-                    ? `radial-gradient(circle, rgba(255,215,0,${getLightIntensity() / 100}) 0%, rgba(255,204,68,${getLightIntensity() / 150}) 50%, rgba(255,170,0,${getLightIntensity() / 200}) 100%)`
-                    : "radial-gradient(circle, #888888 0%, #666666 50%, #444444 100%)",
-                boxShadow: warmupPhase > 0 ? `0 0 ${warmupPhase * 8}px rgba(255,215,0,0.6)` : "none",
+                    ? `linear-gradient(90deg, 
+                      rgba(255,230,150,${getLightIntensity() / 100}) 0%, 
+                      rgba(255,215,0,${getLightIntensity() / 80}) 20%, 
+                      rgba(255,200,50,${getLightIntensity() / 70}) 50%, 
+                      rgba(255,215,0,${getLightIntensity() / 80}) 80%, 
+                      rgba(255,230,150,${getLightIntensity() / 100}) 100%)`
+                    : "linear-gradient(90deg, #666666 0%, #888888 50%, #666666 100%)",
+                boxShadow:
+                  warmupPhase > 0
+                    ? `0 0 ${warmupPhase * 12}px rgba(255,215,0,0.8), inset 0 2px 4px rgba(255,255,255,0.3)`
+                    : "inset 0 1px 2px rgba(0,0,0,0.3)",
+                border: "1px solid #999999",
               }}
             >
-              {/* Wattage indicator */}
+              {/* Lamp end caps */}
               <div
-                className="absolute inset-0 flex items-center justify-center text-xs font-bold"
+                className="absolute left-0 top-1/2 transform -translate-y-1/2 rounded-full"
                 style={{
-                  color: warmupPhase > 2 ? "#333" : "#666",
-                  fontSize: "8px",
+                  width: "8px",
+                  height: "8px",
+                  background: "radial-gradient(circle, #cccccc, #999999)",
+                  border: "1px solid #777777",
                 }}
-              >
-                {Math.round(getLightIntensity() * 10)}W
-              </div>
+              />
+              <div
+                className="absolute right-0 top-1/2 transform -translate-y-1/2 rounded-full"
+                style={{
+                  width: "8px",
+                  height: "8px",
+                  background: "radial-gradient(circle, #cccccc, #999999)",
+                  border: "1px solid #777777",
+                }}
+              />
+            </div>
+
+            {/* Wattage label */}
+            <div
+              className="absolute bottom-1 right-2 text-xs font-bold"
+              style={{
+                color: warmupPhase > 2 ? "#8B4513" : "#666666",
+                fontSize: "10px",
+                textShadow: "1px 1px 2px rgba(0,0,0,0.3)",
+              }}
+            >
+              1000W DE
             </div>
           </div>
         </div>
 
         {/* Pull cord chain */}
-        <div className="flex flex-col items-center">
+        <div className="flex flex-col items-center mt-2">
           <div
             style={{
               width: "2px",
@@ -175,8 +250,8 @@ const GrowRoomEntrance = () => {
             onMouseLeave={() => setIsHovered(false)}
             className="transition-all duration-200"
             style={{
-              width: "14px",
-              height: "14px",
+              width: "16px",
+              height: "16px",
               background: "radial-gradient(circle, #ffffff 0%, #cccccc 100%)",
               borderRadius: "50%",
               border: "1px solid #999999",
@@ -213,11 +288,11 @@ const GrowRoomEntrance = () => {
               <button
                 key={index}
                 onClick={() => handleNavigation(item)}
-                className="block w-full text-left px-4 py-3 text-sm hover:bg-green-50 hover:text-green-800 transition-colors duration-200 border-b border-gray-100 last:border-b-0"
+                className="block w-full text-left px-4 py-3 text-sm hover:bg-amber-50 hover:text-amber-800 transition-colors duration-200 border-b border-gray-100 last:border-b-0"
                 style={{ color: "#333333" }}
               >
                 <div className="flex items-center space-x-2">
-                  <span className="text-green-600">🌿</span>
+                  <span className="text-amber-600">💡</span>
                   <span>{item}</span>
                 </div>
               </button>
@@ -225,14 +300,18 @@ const GrowRoomEntrance = () => {
           </div>
         )}
 
-        {/* Light beam effect */}
+        {/* Professional light beam effect */}
         {warmupPhase > 0 && (
           <div
             className="absolute top-full left-1/2 transform -translate-x-1/2"
             style={{
-              width: `${60 + warmupPhase * 20}px`,
-              height: `${40 + warmupPhase * 15}px`,
-              background: `radial-gradient(ellipse at center top, rgba(255,215,0,${warmupPhase * 0.1}) 0%, rgba(255,204,68,${warmupPhase * 0.05}) 50%, transparent 100%)`,
+              width: `${100 + warmupPhase * 30}px`,
+              height: `${60 + warmupPhase * 25}px`,
+              background: `radial-gradient(ellipse at center top, 
+                rgba(255,230,150,${warmupPhase * 0.15}) 0%, 
+                rgba(255,215,0,${warmupPhase * 0.1}) 30%, 
+                rgba(255,200,50,${warmupPhase * 0.05}) 60%, 
+                transparent 100%)`,
               borderRadius: "0 0 50% 50%",
             }}
           />
@@ -412,37 +491,54 @@ const GrowRoomEntrance = () => {
         />
 
         <div className="absolute top-0 left-0 right-0 z-30 bg-white bg-opacity-90 border-b border-gray-200">
-          <div className="flex justify-center items-start py-8 space-x-8">
+          <div className="flex justify-center items-start py-8 space-x-6">
             <NavigationLight
-              label="Shop"
+              label="Products"
               delay={0}
               isOn={lightsOn}
-              menuItems={["All Products", "New Arrivals", "Best Sellers", "Sale Items"]}
+              menuItems={["LED Grow Lights", "HPS Systems", "Ballasts", "Reflectors"]}
             />
             <NavigationLight
-              label="Drops"
-              delay={0.3}
+              label="Solutions"
+              delay={0.4}
               isOn={lightsOn}
-              menuItems={["Coming Soon", "Past Drops", "VIP Early Access"]}
+              menuItems={["Commercial Setup", "Home Growing", "Greenhouse", "Vertical Farming"]}
             />
             <NavigationLight
-              label="VIP"
-              delay={0.6}
+              label="Support"
+              delay={0.8}
               isOn={lightsOn}
-              menuItems={["Membership Tiers", "Exclusive Access", "Member Benefits", "Upgrade"]}
+              menuItems={["Installation Guide", "Troubleshooting", "Warranty", "Technical Support"]}
             />
             <NavigationLight
               label="About"
-              delay={0.9}
+              delay={1.2}
               isOn={lightsOn}
-              menuItems={["Our Story", "Mission", "Team", "Contact"]}
+              menuItems={["Our Story", "Mission", "Team", "Certifications"]}
             />
-            <NavigationLight label="Account" delay={1.2} isOn={lightsOn} menuItems={["Search", "Cart", "Profile"]} />
+            <NavigationLight
+              label="Contact"
+              delay={1.6}
+              isOn={lightsOn}
+              menuItems={["Sales Team", "Support", "Locations", "Distributors"]}
+            />
+            <NavigationLight
+              label="Lighting Solutions"
+              delay={2.0}
+              isOn={lightsOn}
+              menuItems={["Custom Design", "Energy Efficiency", "Light Planning", "Consultation"]}
+            />
+            <NavigationLight
+              label="Get Quote"
+              delay={2.4}
+              isOn={lightsOn}
+              menuItems={["Request Quote", "Bulk Pricing", "Financing", "Leasing Options"]}
+            />
           </div>
         </div>
 
         {/* Main content */}
-        <header className="relative py-20 px-4" style={{ zIndex: 1, marginTop: "120px" }}>
+        <header className="relative py-20 px-4" style={{ zIndex: 1, marginTop: "140px" }}>
           <div className="text-center space-y-8">
             <h1
               className="text-6xl font-bold transition-colors duration-4000"
@@ -451,7 +547,7 @@ const GrowRoomEntrance = () => {
                 textShadow: lightsOn ? "0 2px 4px rgba(139,69,19,0.3)" : "none",
               }}
             >
-              Grow Spaizd
+              GrowTech Professional
             </h1>
             <div
               className="text-xl transition-colors duration-4000"
@@ -459,7 +555,7 @@ const GrowRoomEntrance = () => {
                 color: lightsOn ? "#A0522D" : "#888888",
               }}
             >
-              Premium Cannabis Streetwear • Cultivation Inspired
+              Premium Horticultural Lighting Solutions • Professional Grade Equipment
             </div>
           </div>
         </header>
