@@ -276,12 +276,11 @@ const GrowRoomEntrance = () => {
         {/* Dropdown Menu */}
         {showDropdown && (
           <div
-            className="absolute top-full left-1/2 transform -translate-x-1/2 mt-2 rounded-lg shadow-2xl z-50"
+            className="absolute top-full left-1/2 transform -translate-x-1/2 mt-2 rounded-lg shadow-2xl z-50 animate-in fade-in duration-300"
             style={{
               width: "200px",
               background: "linear-gradient(135deg, #ffffff 0%, #f8f8f8 100%)",
               border: "1px solid #cccccc",
-              animation: "fadeIn 0.3s ease-out",
             }}
           >
             {menuItems.map((item, index) => (
@@ -316,13 +315,6 @@ const GrowRoomEntrance = () => {
             }}
           />
         )}
-
-        <style jsx>{`
-          @keyframes fadeIn {
-            from { opacity: 0; transform: translateX(-50%) translateY(-10px); }
-            to { opacity: 1; transform: translateX(-50%) translateY(0px); }
-          }
-        `}</style>
       </div>
     )
   }
