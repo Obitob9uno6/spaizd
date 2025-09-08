@@ -4,75 +4,84 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
-  /* Updated color tokens to match sophisticated design brief */
-  --background: #ffffff; /* Clean white background */
-  --foreground: #374151; /* Modern gray-700 for text */
-  --card: #f8fafc; /* Light gray for cards */
-  --card-foreground: #374151; /* Gray text on cards */
-  --popover: #ffffff; /* White popover background */
-  --popover-foreground: #374151; /* Gray text on popover */
-  --primary: #374151; /* Gray-700 for primary elements */
-  --primary-foreground: #ffffff; /* White text on primary */
-  --secondary: #6366f1; /* Blue-600 accent color */
-  --secondary-foreground: #ffffff; /* White text on secondary */
-  --muted: #f8fafc; /* Light gray for muted sections */
-  --muted-foreground: #6b7280; /* Gray-500 for muted text */
-  --accent: #6366f1; /* Blue-600 for call-to-action */
-  --accent-foreground: #ffffff; /* White text on accent */
+  /* Updated to Dark Bloom cannabis aesthetic palette */
+  --background: #0e0b10; /* Cosmic black background */
+  --foreground: #eaeaea; /* Light body text */
+  --card: #1a1520; /* Slightly lighter than background for cards */
+  --card-foreground: #eaeaea; /* Light text on cards */
+  --popover: #1a1520; /* Dark popover background */
+  --popover-foreground: #eaeaea; /* Light text on popover */
+  --primary: #5a2a6d; /* budPurple for primary elements */
+  --primary-foreground: #eaeaea; /* Light text on primary */
+  --secondary: #ff6f3c; /* pistilOrange accent color */
+  --secondary-foreground: #0e0b10; /* Dark text on orange */
+  --muted: #2a2530; /* Muted sections */
+  --muted-foreground: #d8d8d8; /* trichomeFrost for muted text */
+  --accent: #ff6f3c; /* pistilOrange for call-to-action */
+  --accent-foreground: #0e0b10; /* Dark text on accent */
   --destructive: #ef4444; /* Red for errors */
-  --destructive-foreground: #ffffff; /* White text on destructive */
-  --border: #d1d5db; /* Light gray borders */
-  --input: #f8fafc; /* Light gray input background */
-  --ring: rgba(99, 102, 241, 0.5); /* Blue focus ring */
-  --chart-1: #e5e7eb;
-  --chart-2: #d1fae5;
-  --chart-3: #fbbf24;
-  --chart-4: #f472b6;
-  --chart-5: #a78bfa;
+  --destructive-foreground: #eaeaea; /* Light text on destructive */
+  --border: #3e6b3e; /* leafGreen borders */
+  --input: #1a1520; /* Dark input background */
+  --ring: rgba(90, 42, 109, 0.5); /* budPurple focus ring */
+  --chart-1: #5a2a6d;
+  --chart-2: #3e6b3e;
+  --chart-3: #c28840;
+  --chart-4: #ff6f3c;
+  --chart-5: #d8d8d8;
   --radius: 0.5rem;
-  --sidebar: #f8fafc;
-  --sidebar-foreground: #374151;
-  --sidebar-primary: #ffffff;
-  --sidebar-primary-foreground: #374151;
-  --sidebar-accent: #6366f1;
-  --sidebar-accent-foreground: #ffffff;
-  --sidebar-border: #d1d5db;
-  --sidebar-ring: rgba(99, 102, 241, 0.5);
+  --sidebar: #1a1520;
+  --sidebar-foreground: #eaeaea;
+  --sidebar-primary: #5a2a6d;
+  --sidebar-primary-foreground: #eaeaea;
+  --sidebar-accent: #ff6f3c;
+  --sidebar-accent-foreground: #0e0b10;
+  --sidebar-border: #3e6b3e;
+  --sidebar-ring: rgba(90, 42, 109, 0.5);
+
+  /* Added custom Dark Bloom palette variables */
+  --bud-purple: #5a2a6d;
+  --trichome-frost: #d8d8d8;
+  --pistil-orange: #ff6f3c;
+  --leaf-green: #3e6b3e;
+  --amber-glow: #c28840;
+  --heading-gold: #ffd700;
 }
 
 .dark {
-  --background: #111827; /* Dark gray-900 */
-  --foreground: #f9fafb; /* Light gray-50 */
-  --card: #1f2937; /* Dark gray-800 */
-  --card-foreground: #f9fafb;
-  --popover: #1f2937;
-  --popover-foreground: #f9fafb;
-  --primary: #6366f1; /* Blue accent in dark mode */
-  --primary-foreground: #ffffff;
-  --secondary: #374151; /* Gray secondary in dark */
-  --secondary-foreground: #f9fafb;
-  --muted: #374151;
-  --muted-foreground: #9ca3af;
-  --accent: #6366f1;
-  --accent-foreground: #ffffff;
+  /* Dark mode uses same Dark Bloom palette */
+  --background: #0e0b10;
+  --foreground: #eaeaea;
+  --card: #1a1520;
+  --card-foreground: #eaeaea;
+  --popover: #1a1520;
+  --popover-foreground: #eaeaea;
+  --primary: #5a2a6d;
+  --primary-foreground: #eaeaea;
+  --secondary: #ff6f3c;
+  --secondary-foreground: #0e0b10;
+  --muted: #2a2530;
+  --muted-foreground: #d8d8d8;
+  --accent: #ff6f3c;
+  --accent-foreground: #0e0b10;
   --destructive: #ef4444;
-  --destructive-foreground: #ffffff;
-  --border: #374151;
-  --input: #374151;
-  --ring: rgba(99, 102, 241, 0.5);
-  --chart-1: #374151;
-  --chart-2: #1f2937;
-  --chart-3: #fbbf24;
-  --chart-4: #f472b6;
-  --chart-5: #a78bfa;
-  --sidebar: #1f2937;
-  --sidebar-foreground: #f9fafb;
-  --sidebar-primary: #6366f1;
-  --sidebar-primary-foreground: #ffffff;
-  --sidebar-accent: #374151;
-  --sidebar-accent-foreground: #f9fafb;
-  --sidebar-border: #374151;
-  --sidebar-ring: rgba(99, 102, 241, 0.5);
+  --destructive-foreground: #eaeaea;
+  --border: #3e6b3e;
+  --input: #1a1520;
+  --ring: rgba(90, 42, 109, 0.5);
+  --chart-1: #5a2a6d;
+  --chart-2: #3e6b3e;
+  --chart-3: #c28840;
+  --chart-4: #ff6f3c;
+  --chart-5: #d8d8d8;
+  --sidebar: #1a1520;
+  --sidebar-foreground: #eaeaea;
+  --sidebar-primary: #5a2a6d;
+  --sidebar-primary-foreground: #eaeaea;
+  --sidebar-accent: #ff6f3c;
+  --sidebar-accent-foreground: #0e0b10;
+  --sidebar-border: #3e6b3e;
+  --sidebar-ring: rgba(90, 42, 109, 0.5);
 }
 
 @theme inline {
@@ -122,5 +131,46 @@
   }
   body {
     @apply bg-background text-foreground;
+  }
+
+  /* Added custom utility classes for Dark Bloom palette */
+  .text-heading-gold {
+    color: #ffd700;
+  }
+
+  .bg-bud-purple {
+    background-color: #5a2a6d;
+  }
+
+  .text-bud-purple {
+    color: #5a2a6d;
+  }
+
+  .bg-pistil-orange {
+    background-color: #ff6f3c;
+  }
+
+  .text-pistil-orange {
+    color: #ff6f3c;
+  }
+
+  .bg-leaf-green {
+    background-color: #3e6b3e;
+  }
+
+  .text-leaf-green {
+    color: #3e6b3e;
+  }
+
+  .bg-amber-glow {
+    background-color: #c28840;
+  }
+
+  .text-amber-glow {
+    color: #c28840;
+  }
+
+  .text-trichome-frost {
+    color: #d8d8d8;
   }
 }
