@@ -134,8 +134,12 @@
   }
 
   /* Added custom utility classes for Dark Bloom palette */
-  .text-heading-gold {
-    color: #ffd700;
+  .text-heading-primary {
+    color: #d8d8d8; /* trichomeFrost for main headings */
+  }
+
+  .text-heading-accent {
+    color: #c28840; /* amberGlow for accent headings */
   }
 
   .bg-bud-purple {
@@ -172,5 +176,14 @@
 
   .text-trichome-frost {
     color: #d8d8d8;
+  }
+
+  /* Added subtle pistil orange variants for more refined usage */
+  .border-pistil-orange-subtle {
+    border-color: rgba(255, 111, 60, 0.3);
+  }
+
+  .text-pistil-orange-subtle {
+    color: rgba(255, 111, 60, 0.8);
   }
 }

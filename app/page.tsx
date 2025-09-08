@@ -25,9 +25,9 @@ export default function HomePage() {
               <Clock className="w-4 h-4 mr-2" />
               Next Drop: 72 Hours
             </Badge>
-            <h1 className="text-6xl md:text-8xl font-bold mb-6 text-balance text-heading-gold">
+            <h1 className="text-6xl md:text-8xl font-bold mb-6 text-balance text-heading-primary">
               Elevate Your Style
-              <span className="text-pistil-orange block">with Spaizd</span>
+              <span className="text-heading-accent block">with Spaizd</span>
             </h1>
             <p className="text-xl md:text-2xl text-trichome-frost mb-8 text-pretty max-w-3xl mx-auto leading-relaxed">
               Discover the fusion of comfort and street culture. Premium cannabis streetwear designed for those who
@@ -44,7 +44,7 @@ export default function HomePage() {
               <Button
                 size="lg"
                 variant="outline"
-                className="text-lg px-8 py-6 bg-transparent border-pistil-orange text-pistil-orange hover:bg-pistil-orange hover:text-background"
+                className="text-lg px-8 py-6 bg-transparent border-pistil-orange-subtle text-trichome-frost hover:bg-pistil-orange/10 hover:border-pistil-orange"
               >
                 Join VIP Access
               </Button>
@@ -72,7 +72,7 @@ export default function HomePage() {
       <section className="py-20 px-4 bg-gradient-to-b from-background to-card">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold mb-6 text-heading-gold">Featured Collection</h2>
+            <h2 className="text-4xl font-bold mb-6 text-heading-primary">Featured Collection</h2>
             <p className="text-xl text-trichome-frost max-w-2xl mx-auto">
               Discover our most popular pieces, crafted with premium materials and authentic street-inspired designs.
             </p>
@@ -90,10 +90,10 @@ export default function HomePage() {
                   />
                 </div>
                 <div className="p-6">
-                  <h3 className="font-semibold text-lg mb-2 text-heading-gold">Essential Black Tee</h3>
+                  <h3 className="font-semibold text-lg mb-2 text-heading-primary">Essential Black Tee</h3>
                   <p className="text-trichome-frost text-sm mb-4">Premium cotton with minimalist design</p>
                   <div className="flex items-center justify-between">
-                    <span className="font-bold text-xl text-pistil-orange">$50</span>
+                    <span className="font-bold text-xl text-amber-glow">$50</span>
                     <Badge className="bg-amber-glow text-background">Limited</Badge>
                   </div>
                 </div>
@@ -111,10 +111,10 @@ export default function HomePage() {
                   />
                 </div>
                 <div className="p-6">
-                  <h3 className="font-semibold text-lg mb-2 text-heading-gold">Signature Green Hoodie</h3>
+                  <h3 className="font-semibold text-lg mb-2 text-heading-primary">Signature Green Hoodie</h3>
                   <p className="text-trichome-frost text-sm mb-4">Signature colorway, premium comfort</p>
                   <div className="flex items-center justify-between">
-                    <span className="font-bold text-xl text-pistil-orange">$80</span>
+                    <span className="font-bold text-xl text-amber-glow">$80</span>
                     <Badge className="bg-bud-purple text-trichome-frost">Popular</Badge>
                   </div>
                 </div>
@@ -132,10 +132,10 @@ export default function HomePage() {
                   />
                 </div>
                 <div className="p-6">
-                  <h3 className="font-semibold text-lg mb-2 text-heading-gold">Classic Gold Snapback</h3>
+                  <h3 className="font-semibold text-lg mb-2 text-heading-primary">Classic Gold Snapback</h3>
                   <p className="text-trichome-frost text-sm mb-4">Classic fit with embroidered logo</p>
                   <div className="flex items-center justify-between">
-                    <span className="font-bold text-xl text-pistil-orange">$45</span>
+                    <span className="font-bold text-xl text-amber-glow">$45</span>
                     <Badge className="bg-leaf-green text-trichome-frost">New</Badge>
                   </div>
                 </div>
@@ -148,7 +148,7 @@ export default function HomePage() {
               <Button
                 size="lg"
                 variant="outline"
-                className="text-lg px-8 py-4 bg-transparent border-pistil-orange text-pistil-orange hover:bg-pistil-orange hover:text-background"
+                className="text-lg px-8 py-4 bg-transparent border-pistil-orange-subtle text-trichome-frost hover:bg-pistil-orange/10 hover:border-pistil-orange"
               >
                 View All Products
                 <ArrowRight className="ml-2 h-5 w-5" />
@@ -164,7 +164,7 @@ export default function HomePage() {
             <Zap className="w-4 h-4 mr-2" />
             VIP Exclusive
           </Badge>
-          <h2 className="text-3xl font-bold mb-6 text-heading-gold">Join the Inner Circle</h2>
+          <h2 className="text-3xl font-bold mb-6 text-heading-primary">Join the Inner Circle</h2>
           <p className="text-trichome-frost mb-8 text-lg leading-relaxed">
             Get early access to drops, exclusive colorways, and member-only pricing. Be part of the community that gets
             first dibs on everything.
@@ -175,7 +175,7 @@ export default function HomePage() {
               <div className="w-12 h-12 bg-bud-purple rounded-full flex items-center justify-center mb-4 border border-leaf-green">
                 <Clock className="w-6 h-6 text-trichome-frost" />
               </div>
-              <h3 className="font-semibold mb-2 text-heading-gold">Early Access</h3>
+              <h3 className="font-semibold mb-2 text-heading-accent">Early Access</h3>
               <p className="text-trichome-frost text-sm">Shop drops 24-72 hours before public release</p>
             </div>
 
@@ -183,7 +183,7 @@ export default function HomePage() {
               <div className="w-12 h-12 bg-bud-purple rounded-full flex items-center justify-center mb-4 border border-leaf-green">
                 <Users className="w-6 h-6 text-trichome-frost" />
               </div>
-              <h3 className="font-semibold mb-2 text-heading-gold">Exclusive Drops</h3>
+              <h3 className="font-semibold mb-2 text-heading-accent">Exclusive Drops</h3>
               <p className="text-trichome-frost text-sm">Access to VIP-only colorways and designs</p>
             </div>
 
@@ -191,7 +191,7 @@ export default function HomePage() {
               <div className="w-12 h-12 bg-bud-purple rounded-full flex items-center justify-center mb-4 border border-leaf-green">
                 <Zap className="w-6 h-6 text-trichome-frost" />
               </div>
-              <h3 className="font-semibold mb-2 text-heading-gold">Member Pricing</h3>
+              <h3 className="font-semibold mb-2 text-heading-accent">Member Pricing</h3>
               <p className="text-trichome-frost text-sm">10-20% off all purchases plus free shipping</p>
             </div>
           </div>
@@ -199,7 +199,7 @@ export default function HomePage() {
           <Link href="/vip">
             <Button
               size="lg"
-              className="bg-pistil-orange hover:bg-pistil-orange/90 text-background border border-leaf-green"
+              className="bg-bud-purple hover:bg-bud-purple/90 text-trichome-frost border border-pistil-orange-subtle hover:border-pistil-orange"
             >
               Explore VIP Membership
               <ArrowRight className="ml-2 h-5 w-5" />
@@ -210,7 +210,7 @@ export default function HomePage() {
 
       <section className="py-16 px-4">
         <div className="max-w-2xl mx-auto text-center">
-          <h2 className="text-3xl font-bold mb-4 text-heading-gold">Stay in the Loop</h2>
+          <h2 className="text-3xl font-bold mb-4 text-heading-primary">Stay in the Loop</h2>
           <p className="text-trichome-frost mb-8">
             Be the first to know about new drops, restocks, and exclusive offers.
           </p>
