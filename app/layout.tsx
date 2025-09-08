@@ -10,7 +10,7 @@ import { AgeVerificationModal } from "@/components/age-verification-modal"
 import { Suspense } from "react"
 
 export const metadata: Metadata = {
-  title: "Grow Spaizd - Premium Cannabis Streetwear",
+  title: "Spaizd - Premium Cannabis Streetwear", // Updated from "Grow Spaizd" to "Spaizd"
   description:
     "Exclusive cannabis-themed streetwear drops, VIP memberships, and premium apparel for the cannabis community.",
   generator: "v0.app",

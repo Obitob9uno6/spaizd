@@ -18,9 +18,11 @@ export function Navigation() {
           {/* Logo */}
           <Link href="/" className="flex items-center space-x-2">
             <div className="w-8 h-8 bg-secondary rounded-full flex items-center justify-center">
-              <span className="text-secondary-foreground font-bold text-sm">GS</span>
+              <span className="text-secondary-foreground font-bold text-sm">S</span>{" "}
+              {/* Updated from "GS" to "S" for Spaizd */}
             </div>
-            <span className="font-bold text-xl text-foreground">Grow Spaizd</span>
+            <span className="font-bold text-xl text-foreground">Spaizd</span>{" "}
+            {/* Updated from "Grow Spaizd" to "Spaizd" */}
           </Link>
 
           {/* Desktop Navigation */}
@@ -36,6 +38,9 @@ export function Navigation() {
             </Link>
             <Link href="/about" className="text-foreground hover:text-secondary transition-colors">
               About
+            </Link>
+            <Link href="/contact" className="text-foreground hover:text-secondary transition-colors">
+              Contact
             </Link>
           </div>
 
@@ -100,6 +105,13 @@ export function Navigation() {
                 onClick={() => setIsOpen(false)}
               >
                 About
+              </Link>
+              <Link
+                href="/contact"
+                className="block px-3 py-2 text-foreground hover:text-secondary transition-colors"
+                onClick={() => setIsOpen(false)}
+              >
+                Contact
               </Link>
               <div className="flex items-center space-x-4 px-3 py-2">
                 <Link href="/cart">

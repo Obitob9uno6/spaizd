@@ -20,7 +20,8 @@ export default function AboutPage() {
         <div className="max-w-4xl mx-auto">
           {/* Hero Section */}
           <div className="text-center mb-16">
-            <h1 className="text-5xl font-bold text-white mb-6">About Grow Spaizd</h1>
+            <h1 className="text-5xl font-bold text-white mb-6">About Spaizd</h1>{" "}
+            {/* Updated from "Grow Spaizd" to "Spaizd" */}
             <p className="text-xl text-green-100 max-w-2xl mx-auto">
               Premium cannabis-inspired streetwear for the cultivation community. Where passion meets fashion in the
               grow room.
@@ -32,10 +33,10 @@ export default function AboutPage() {
             <div className="bg-black/40 backdrop-blur-sm rounded-lg p-8 border border-green-500/20">
               <h2 className="text-3xl font-bold text-green-400 mb-4">Our Story</h2>
               <p className="text-gray-200 mb-4">
-                Born from the underground cultivation scene, Grow Spaizd represents the intersection of cannabis culture
-                and high-end streetwear. We understand the dedication, precision, and artistry that goes into every
-                grow.
-              </p>
+                Born from the underground cultivation scene, Spaizd represents the intersection of cannabis culture and
+                high-end streetwear. We understand the dedication, precision, and artistry that goes into every grow.
+              </p>{" "}
+              {/* Updated from "Grow Spaizd" to "Spaizd" */}
               <p className="text-gray-200">
                 Our designs celebrate the grower's journey - from seed to harvest, from passion project to lifestyle.
                 Every piece tells the story of late nights under grow lights, the satisfaction of a perfect cure, and

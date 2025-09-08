@@ -9,9 +9,10 @@ export function Footer() {
           <div className="space-y-4">
             <div className="flex items-center space-x-2">
               <div className="w-8 h-8 bg-led-green rounded-full flex items-center justify-center">
-                <span className="text-black font-bold text-sm">GS</span>
+                <span className="text-black font-bold text-sm">S</span> {/* Updated from "GS" to "S" for Spaizd */}
               </div>
-              <span className="font-bold text-xl text-white">Grow Spaizd</span>
+              <span className="font-bold text-xl text-white">Spaizd</span>{" "}
+              {/* Updated from "Grow Spaizd" to "Spaizd" */}
             </div>
             <p className="text-gray-400 text-sm">
               Premium cannabis streetwear for the community. Exclusive drops, quality materials, authentic designs.
@@ -117,7 +118,8 @@ export function Footer() {
         <div className="mt-8 pt-8 border-t border-gray-700">
           <div className="flex flex-col md:flex-row justify-between items-center">
             <div className="text-center md:text-left">
-              <p className="text-gray-400 text-sm">© 2024 Grow Spaizd. All rights reserved.</p>
+              <p className="text-gray-400 text-sm">© 2024 Spaizd. All rights reserved.</p>{" "}
+              {/* Updated from "Grow Spaizd" to "Spaizd" */}
               <p className="text-gray-500 text-xs mt-1">
                 Cannabis-themed apparel only. No actual cannabis products sold. 21+ only.
               </p>

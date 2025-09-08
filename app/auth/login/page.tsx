@@ -84,7 +84,8 @@ export default function LoginPage() {
         <Card className="bg-black/80 border-green-500/30">
           <CardHeader className="text-center">
             <CardTitle className="text-2xl text-green-400">Welcome Back</CardTitle>
-            <CardDescription className="text-gray-300">Sign in to your Grow Spaizd account</CardDescription>
+            <CardDescription className="text-gray-300">Sign in to your Spaizd account</CardDescription>{" "}
+            {/* Updated branding from "Grow Spaizd" to "Spaizd" */}
           </CardHeader>
           <CardContent>
             <div className="space-y-3 mb-6">

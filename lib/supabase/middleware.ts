@@ -5,6 +5,7 @@ export async function updateSession(request: NextRequest) {
   const hasAuthCookie = request.cookies.has("sb-access-token")
 
   const publicRoutes = [
+    "/", // Added root path to allow free access to landing page
     "/auth/login",
     "/auth/sign-up",
     "/auth/sign-up-success",

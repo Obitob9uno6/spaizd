@@ -96,7 +96,7 @@ export default function SignUpPage() {
       <div className="w-full max-w-sm relative z-10">
         <Card className="bg-black/80 border-green-500/30">
           <CardHeader className="text-center">
-            <CardTitle className="text-2xl text-green-400">Join Grow Spaizd</CardTitle>
+            <CardTitle className="text-2xl text-green-400">Join Spaizd</CardTitle>
             <CardDescription className="text-gray-300">Create your account to access exclusive drops</CardDescription>
           </CardHeader>
           <CardContent>
