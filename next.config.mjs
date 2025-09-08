@@ -12,6 +12,20 @@ const nextConfig = {
   experimental: {
     allowedRevalidateHeaderKeys: ['*'],
   },
+  // Allow all origins for development in Replit
+  async headers() {
+    return [
+      {
+        source: '/(.*)',
+        headers: [
+          {
+            key: 'X-Frame-Options',
+            value: 'SAMEORIGIN',
+          },
+        ],
+      },
+    ]
+  },
 }
 
 export default nextConfig
