@@ -8,17 +8,6 @@ export default function HomePage() {
   return (
     <div className="flex flex-col">
       <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-        {/* Background Image */}
-        <div
-          className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-20"
-          style={{
-            backgroundImage: `url('/macro-photography-of-cannabis-trichomes-and-purple.jpg')`,
-          }}
-        />
-
-        {/* Gradient Overlay */}
-        <div className="absolute inset-0 bg-gradient-to-br from-background via-background/80 to-background/60" />
-
         <div className="relative z-10 max-w-6xl mx-auto px-4">
           <div className="text-center mb-12">
             <Badge className="mb-6 bg-bud-purple text-trichome-frost border-leaf-green">

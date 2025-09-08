@@ -7,6 +7,7 @@ import "./globals.css"
 import { Footer } from "@/components/footer"
 import { Header } from "@/components/header"
 import { AgeVerificationModal } from "@/components/age-verification-modal"
+import { SectionBackground } from "@/components/section-background"
 import { Suspense } from "react"
 
 export const metadata: Metadata = {
@@ -24,12 +25,14 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`font-sans ${GeistSans.variable} ${GeistMono.variable} antialiased`}>
-        <Suspense fallback={<div>Loading...</div>}>
-          <Header />
-          <main className="min-h-screen">{children}</main>
-          <Footer />
-          <AgeVerificationModal />
-        </Suspense>
+        <SectionBackground>
+          <Suspense fallback={<div>Loading...</div>}>
+            <Header />
+            <main className="min-h-screen">{children}</main>
+            <Footer />
+            <AgeVerificationModal />
+          </Suspense>
+        </SectionBackground>
         <Analytics />
       </body>
     </html>
