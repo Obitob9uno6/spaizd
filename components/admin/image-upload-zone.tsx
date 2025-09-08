@@ -7,13 +7,14 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { Upload, X, ImageIcon, AlertCircle, CheckCircle } from "lucide-react"
+import { Upload, X, ImageIcon, AlertCircle, CheckCircle, Loader2 } from "lucide-react"
 
 interface ImageUploadZoneProps {
-  onUpload: (files: File[]) => void
+  onUpload: (files: File[], category: string, tags: string) => void
   maxFiles?: number
   maxSize?: number // in MB
   acceptedTypes?: string[]
+  uploading?: boolean
 }
 
 export function ImageUploadZone({
@@ -21,6 +22,7 @@ export function ImageUploadZone({
   maxFiles = 10,
   maxSize = 10,
   acceptedTypes = ["image/jpeg", "image/png", "image/webp"],
+  uploading = false,
 }: ImageUploadZoneProps) {
   const [isDragOver, setIsDragOver] = useState(false)
   const [selectedFiles, setSelectedFiles] = useState<File[]>([])
@@ -94,7 +96,7 @@ export function ImageUploadZone({
   const handleUpload = () => {
     if (selectedFiles.length === 0) return
 
-    onUpload(selectedFiles)
+    onUpload(selectedFiles, category, tags)
     setSelectedFiles([])
     setTags("")
     setErrors([])
@@ -224,9 +226,22 @@ export function ImageUploadZone({
             </div>
           </div>
 
-          <Button onClick={handleUpload} className="w-full bg-leaf-green hover:bg-leaf-green/80 text-cosmic-black">
-            <CheckCircle className="w-4 h-4 mr-2" />
-            Upload {selectedFiles.length} Image{selectedFiles.length !== 1 ? "s" : ""}
+          <Button
+            onClick={handleUpload}
+            disabled={uploading}
+            className="w-full bg-leaf-green hover:bg-leaf-green/80 text-cosmic-black"
+          >
+            {uploading ? (
+              <>
+                <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                Uploading...
+              </>
+            ) : (
+              <>
+                <CheckCircle className="w-4 h-4 mr-2" />
+                Upload {selectedFiles.length} Image{selectedFiles.length !== 1 ? "s" : ""}
+              </>
+            )}
           </Button>
         </div>
       )}

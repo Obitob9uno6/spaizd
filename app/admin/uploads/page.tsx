@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
@@ -8,58 +8,164 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { ImageUploadZone } from "@/components/admin/image-upload-zone"
 import { ImageGallery } from "@/components/admin/image-gallery"
 import { Upload, ImageIcon, Search, Grid, List } from "lucide-react"
+import { useToast } from "@/hooks/use-toast"
+
+interface ImageData {
+  id: string
+  name: string
+  original_name: string
+  url: string
+  category: string
+  tags: string[]
+  size_bytes: number
+  width?: number
+  height?: number
+  mime_type: string
+  created_at: string
+  updated_at: string
+}
 
 export default function AdminUploadsPage() {
   const [viewMode, setViewMode] = useState<"grid" | "list">("grid")
   const [searchTerm, setSearchTerm] = useState("")
   const [categoryFilter, setCategoryFilter] = useState("all")
-  const [uploadedImages, setUploadedImages] = useState([
-    {
-      id: "1",
-      name: "cosmic-trichomes-macro.jpg",
-      url: "/macro-cannabis-trichomes-purple.jpg",
-      category: "product",
-      tags: ["trichomes", "macro", "purple", "cannabis"],
-      size: "2.4 MB",
-      dimensions: "1920x1080",
-      uploadedAt: "2024-01-15T10:30:00Z",
-    },
-    {
-      id: "2",
-      name: "nebula-cola-close-up.jpg",
-      url: "/cannabis-cola-bud-close-up.jpg",
-      category: "hero",
-      tags: ["cola", "bud", "close-up", "cannabis"],
-      size: "3.1 MB",
-      dimensions: "2560x1440",
-      uploadedAt: "2024-01-14T15:45:00Z",
-    },
-  ])
+  const [images, setImages] = useState<ImageData[]>([])
+  const [loading, setLoading] = useState(true)
+  const [uploading, setUploading] = useState(false)
+  const { toast } = useToast()
 
-  const handleImageUpload = (files: File[]) => {
-    // In a real implementation, this would upload to cloud storage
-    files.forEach((file) => {
-      const newImage = {
-        id: Date.now().toString(),
-        name: file.name,
-        url: URL.createObjectURL(file),
-        category: "product",
-        tags: [],
-        size: `${(file.size / 1024 / 1024).toFixed(1)} MB`,
-        dimensions: "Unknown",
-        uploadedAt: new Date().toISOString(),
-      }
-      setUploadedImages((prev) => [newImage, ...prev])
-    })
+  const loadImages = async () => {
+    try {
+      const params = new URLSearchParams()
+      if (categoryFilter !== "all") params.set("category", categoryFilter)
+      if (searchTerm) params.set("search", searchTerm)
+
+      const response = await fetch(`/api/admin/images?${params}`)
+      if (!response.ok) throw new Error("Failed to load images")
+
+      const data = await response.json()
+      setImages(data.images || [])
+    } catch (error) {
+      console.error("Error loading images:", error)
+      toast({
+        title: "Error",
+        description: "Failed to load images",
+        variant: "destructive",
+      })
+    } finally {
+      setLoading(false)
+    }
   }
 
-  const filteredImages = uploadedImages.filter((image) => {
-    const matchesSearch =
-      image.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      image.tags.some((tag) => tag.toLowerCase().includes(searchTerm.toLowerCase()))
-    const matchesCategory = categoryFilter === "all" || image.category === categoryFilter
-    return matchesSearch && matchesCategory
-  })
+  useEffect(() => {
+    loadImages()
+  }, [categoryFilter, searchTerm])
+
+  const handleImageUpload = async (files: File[], category: string, tags: string) => {
+    setUploading(true)
+
+    try {
+      const uploadPromises = files.map(async (file) => {
+        const formData = new FormData()
+        formData.append("file", file)
+        formData.append("category", category)
+        formData.append("tags", tags)
+
+        const response = await fetch("/api/admin/images/upload", {
+          method: "POST",
+          body: formData,
+        })
+
+        if (!response.ok) {
+          throw new Error(`Failed to upload ${file.name}`)
+        }
+
+        return response.json()
+      })
+
+      const results = await Promise.all(uploadPromises)
+      const successCount = results.filter((r) => r.success).length
+
+      toast({
+        title: "Upload Complete",
+        description: `Successfully uploaded ${successCount} of ${files.length} images`,
+      })
+
+      // Reload images
+      await loadImages()
+    } catch (error) {
+      console.error("Upload error:", error)
+      toast({
+        title: "Upload Error",
+        description: "Some images failed to upload",
+        variant: "destructive",
+      })
+    } finally {
+      setUploading(false)
+    }
+  }
+
+  const handleImageUpdate = async (id: string, updates: Partial<ImageData>) => {
+    try {
+      const response = await fetch(`/api/admin/images/${id}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(updates),
+      })
+
+      if (!response.ok) throw new Error("Failed to update image")
+
+      const data = await response.json()
+      setImages((prev) => prev.map((img) => (img.id === id ? data.image : img)))
+
+      toast({
+        title: "Success",
+        description: "Image updated successfully",
+      })
+    } catch (error) {
+      console.error("Update error:", error)
+      toast({
+        title: "Error",
+        description: "Failed to update image",
+        variant: "destructive",
+      })
+    }
+  }
+
+  const handleImageDelete = async (id: string) => {
+    try {
+      const response = await fetch(`/api/admin/images/${id}`, {
+        method: "DELETE",
+      })
+
+      if (!response.ok) throw new Error("Failed to delete image")
+
+      setImages((prev) => prev.filter((img) => img.id !== id))
+
+      toast({
+        title: "Success",
+        description: "Image deleted successfully",
+      })
+    } catch (error) {
+      console.error("Delete error:", error)
+      toast({
+        title: "Error",
+        description: "Failed to delete image",
+        variant: "destructive",
+      })
+    }
+  }
+
+  const galleryImages = images.map((img) => ({
+    id: img.id,
+    name: img.original_name,
+    url: img.url,
+    category: img.category,
+    tags: img.tags,
+    size: `${(img.size_bytes / 1024 / 1024).toFixed(1)} MB`,
+    dimensions: img.width && img.height ? `${img.width}x${img.height}` : "Unknown",
+    uploadedAt: img.created_at,
+  }))
 
   return (
     <div className="space-y-6">
@@ -97,7 +203,7 @@ export default function AdminUploadsPage() {
           </CardTitle>
         </CardHeader>
         <CardContent>
-          <ImageUploadZone onUpload={handleImageUpload} />
+          <ImageUploadZone onUpload={handleImageUpload} uploading={uploading} />
         </CardContent>
       </Card>
 
@@ -131,7 +237,7 @@ export default function AdminUploadsPage() {
 
             <div className="flex items-center gap-2 text-sm text-gray-400">
               <ImageIcon className="h-4 w-4" />
-              <span>{filteredImages.length} images</span>
+              <span>{images.length} images</span>
             </div>
           </div>
         </CardContent>
@@ -143,16 +249,18 @@ export default function AdminUploadsPage() {
           <CardTitle className="text-trichome-frost">Image Library</CardTitle>
         </CardHeader>
         <CardContent>
-          <ImageGallery
-            images={filteredImages}
-            viewMode={viewMode}
-            onImageUpdate={(id, updates) => {
-              setUploadedImages((prev) => prev.map((img) => (img.id === id ? { ...img, ...updates } : img)))
-            }}
-            onImageDelete={(id) => {
-              setUploadedImages((prev) => prev.filter((img) => img.id !== id))
-            }}
-          />
+          {loading ? (
+            <div className="flex items-center justify-center py-12">
+              <div className="text-gray-400">Loading images...</div>
+            </div>
+          ) : (
+            <ImageGallery
+              images={galleryImages}
+              viewMode={viewMode}
+              onImageUpdate={handleImageUpdate}
+              onImageDelete={handleImageDelete}
+            />
+          )}
         </CardContent>
       </Card>
     </div>
