@@ -1,5 +1,4 @@
-import { createServerComponentClient } from "@supabase/auth-helpers-nextjs"
-import { cookies } from "next/headers"
+import { createClient } from "@/lib/supabase/server"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { ProductsTable } from "@/components/admin/products-table"
@@ -7,7 +6,7 @@ import { Plus, Package, TrendingUp, AlertTriangle } from "lucide-react"
 import Link from "next/link"
 
 export default async function AdminProductsPage() {
-  const supabase = createServerComponentClient({ cookies })
+  const supabase = await createClient()
 
   const { data: products } = await supabase
     .from("products")

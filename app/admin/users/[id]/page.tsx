@@ -1,5 +1,4 @@
-import { createServerComponentClient } from "@supabase/auth-helpers-nextjs"
-import { cookies } from "next/headers"
+import { createClient } from "@/lib/supabase/server"
 import { notFound } from "next/navigation"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
@@ -16,7 +15,7 @@ interface UserDetailPageProps {
 }
 
 export default async function UserDetailPage({ params }: UserDetailPageProps) {
-  const supabase = createServerComponentClient({ cookies })
+  const supabase = await createClient()
 
   // Fetch user profile data
   const { data: user } = await supabase

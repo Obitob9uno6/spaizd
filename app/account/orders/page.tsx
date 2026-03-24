@@ -1,5 +1,4 @@
-import { createServerComponentClient } from "@supabase/auth-helpers-nextjs"
-import { cookies } from "next/headers"
+import { createClient } from "@/lib/supabase/server"
 import { redirect } from "next/navigation"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
@@ -8,7 +7,7 @@ import Link from "next/link"
 import { Package, Eye } from "lucide-react"
 
 export default async function OrdersPage() {
-  const supabase = createServerComponentClient({ cookies })
+  const supabase = await createClient()
 
   const {
     data: { user },

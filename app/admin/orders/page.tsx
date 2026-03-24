@@ -1,12 +1,11 @@
-import { createServerComponentClient } from "@supabase/auth-helpers-nextjs"
-import { cookies } from "next/headers"
+import { createClient } from "@/lib/supabase/server"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { OrdersTable } from "@/components/admin/orders-table"
 import { OrdersStats } from "@/components/admin/orders-stats"
 import { ShoppingCart, TrendingUp, Clock, CheckCircle } from "lucide-react"
 
 export default async function AdminOrdersPage() {
-  const supabase = createServerComponentClient({ cookies })
+  const supabase = await createClient()
 
   // Fetch orders with user and item details
   const { data: orders } = await supabase

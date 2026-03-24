@@ -1,6 +1,5 @@
 import type React from "react"
-import { createServerComponentClient } from "@supabase/auth-helpers-nextjs"
-import { cookies } from "next/headers"
+import { createClient } from "@/lib/supabase/server"
 import { redirect } from "next/navigation"
 import { AdminSidebar } from "@/components/admin/admin-sidebar"
 import { AdminHeader } from "@/components/admin/admin-header"
@@ -10,14 +9,14 @@ export default async function AdminLayout({
 }: {
   children: React.ReactNode
 }) {
-  const supabase = createServerComponentClient({ cookies })
+  const supabase = await createClient()
 
   const {
     data: { user },
   } = await supabase.auth.getUser()
 
   if (!user) {
-    redirect("/auth/login?admin=true")
+    redirect("/auth/admin-login")
   }
 
   const { data: profile, error } = await supabase
@@ -26,10 +25,8 @@ export default async function AdminLayout({
     .eq("id", user.id)
     .single()
 
-  if (error || !profile || profile.role !== "admin") {
-    // Log unauthorized access attempt
-    console.log(`[SECURITY] Unauthorized admin access attempt by user: ${user.email}`)
-    redirect("/?error=unauthorized")
+  if (error || !profile || (profile.role !== "admin" && profile.role !== "owner")) {
+    redirect("/auth/admin-login?error=unauthorized")
   }
 
   const isOwner = profile.email === process.env.OWNER_EMAIL || profile.role === "owner"

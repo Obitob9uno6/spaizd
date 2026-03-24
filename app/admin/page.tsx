@@ -1,5 +1,4 @@
-import { createServerComponentClient } from "@supabase/auth-helpers-nextjs"
-import { cookies } from "next/headers"
+import { createClient } from "@/lib/supabase/server"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Package, Users, ShoppingCart, DollarSign, Zap } from "lucide-react"
 import { AdminStatsCard } from "@/components/admin/admin-stats-card"
@@ -7,7 +6,7 @@ import { RecentOrders } from "@/components/admin/recent-orders"
 import { DropStatus } from "@/components/admin/drop-status"
 
 export default async function AdminDashboard() {
-  const supabase = createServerComponentClient({ cookies })
+  const supabase = await createClient()
 
   // Fetch dashboard stats
   const [

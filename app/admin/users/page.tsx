@@ -1,12 +1,11 @@
-import { createServerComponentClient } from "@supabase/auth-helpers-nextjs"
-import { cookies } from "next/headers"
+import { createClient } from "@/lib/supabase/server"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { UsersTable } from "@/components/admin/users-table"
 import { UsersStats } from "@/components/admin/users-stats"
 import { Users, UserPlus, Crown, Shield } from "lucide-react"
 
 export default async function AdminUsersPage() {
-  const supabase = createServerComponentClient({ cookies })
+  const supabase = await createClient()
 
   // Fetch users with profile data and VIP memberships
   const { data: users } = await supabase

@@ -70,7 +70,7 @@ export function Footer() {
                 My Account
               </Link>
               <Link
-                href="/account/orders"
+                href="/account"
                 className="block text-gray-400 hover:text-led-green transition-colors text-sm"
               >
                 Order History

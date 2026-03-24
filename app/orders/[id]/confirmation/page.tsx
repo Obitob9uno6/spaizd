@@ -1,5 +1,4 @@
-import { createServerComponentClient } from "@supabase/auth-helpers-nextjs"
-import { cookies } from "next/headers"
+import { createClient } from "@/lib/supabase/server"
 import { notFound } from "next/navigation"
 import { CheckCircle, Package, Truck } from "lucide-react"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
@@ -13,7 +12,7 @@ interface OrderConfirmationPageProps {
 }
 
 export default async function OrderConfirmationPage({ params }: OrderConfirmationPageProps) {
-  const supabase = createServerComponentClient({ cookies })
+  const supabase = await createClient()
 
   const { data: order, error } = await supabase
     .from("orders")
