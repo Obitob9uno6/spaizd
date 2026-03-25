@@ -28,15 +28,14 @@ export default async function DropDetailPage({ params }: { params: Promise<{ id:
   const now = new Date()
   const startTime = new Date(drop.start_time)
   const endTime = drop.end_time ? new Date(drop.end_time) : null
-  const isActive = startTime <= now && (!endTime || endTime > now) && drop.status === "live"
+  const isActive = startTime <= now && (!endTime || endTime > now) && drop.status === "active"
   const isUpcoming = startTime > now
   const isEnded = endTime && endTime <= now
 
   const statusColor: Record<string, string> = {
-    live: "bg-leaf-green text-cosmic-black",
+    active: "bg-leaf-green text-cosmic-black",
     scheduled: "bg-amber-glow text-cosmic-black",
     ended: "bg-gray-500 text-white",
-    draft: "bg-bud-purple text-white",
   }
 
   return (
@@ -47,7 +46,7 @@ export default async function DropDetailPage({ params }: { params: Promise<{ id:
             <Link href="/admin/drops"><ArrowLeft className="w-4 h-4 mr-2" />Drops</Link>
           </Button>
           <div>
-            <h1 className="text-3xl font-bold text-trichome-frost">{drop.title}</h1>
+            <h1 className="text-3xl font-bold text-trichome-frost">{drop.name}</h1>
             <Badge className={statusColor[drop.status] ?? "bg-gray-500 text-white"} style={{ marginTop: "8px" }}>{drop.status}</Badge>
           </div>
         </div>

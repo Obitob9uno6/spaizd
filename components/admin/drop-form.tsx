@@ -21,12 +21,12 @@ export function DropForm({ initialDrop }: DropFormProps) {
   const router = useRouter()
   const [isSaving, setIsSaving] = useState(false)
   const [error, setError] = useState("")
-  const [title, setTitle] = useState(initialDrop?.title || "")
+  const [name, setName] = useState(initialDrop?.name || "")
   const [description, setDescription] = useState(initialDrop?.description || "")
-  const [status, setStatus] = useState(initialDrop?.status || "draft")
-  const [startTime, setStartTime] = useState(initialDrop?.start_time?.split("T")[0] || "")
-  const [endTime, setEndTime] = useState(initialDrop?.end_time?.split("T")[0] || "")
-  const [featuredImage, setFeaturedImage] = useState(initialDrop?.featured_image || "")
+  const [status, setStatus] = useState(initialDrop?.status || "scheduled")
+  const [startTime, setStartTime] = useState(initialDrop?.start_time ? new Date(initialDrop.start_time).toISOString().slice(0, 16) : "")
+  const [endTime, setEndTime] = useState(initialDrop?.end_time ? new Date(initialDrop.end_time).toISOString().slice(0, 16) : "")
+  const [vipOnly, setVipOnly] = useState(initialDrop?.vip_only || false)
   const [products, setProducts] = useState<any[]>([])
   const [availableProducts, setAvailableProducts] = useState<any[]>([])
   const [selectedProductId, setSelectedProductId] = useState("")
@@ -58,8 +58,8 @@ export function DropForm({ initialDrop }: DropFormProps) {
   }
 
   const handleSave = async () => {
-    if (!title.trim()) {
-      setError("Drop title is required")
+    if (!name.trim()) {
+      setError("Drop name is required")
       return
     }
     if (!startTime) {
@@ -72,17 +72,25 @@ export function DropForm({ initialDrop }: DropFormProps) {
     const supabase = createClient()
 
     try {
+      const slug = name
+        .trim()
+        .toLowerCase()
+        .replace(/\s+/g, "-")
+        .replace(/[^a-z0-9-]/g, "")
+
       const dropData = {
-        title: title.trim(),
+        name: name.trim(),
+        slug: initialDrop?.slug || slug,
         description: description.trim() || null,
         status,
         start_time: new Date(startTime).toISOString(),
         end_time: endTime ? new Date(endTime).toISOString() : null,
-        featured_image: featuredImage.trim() || null,
+        vip_only: vipOnly,
       }
 
       if (initialDrop?.id) {
         await supabase.from("drops").update(dropData).eq("id", initialDrop.id)
+        router.push(`/admin/drops/${initialDrop.id}`)
       } else {
         const { data: newDrop } = await supabase.from("drops").insert([dropData]).select().single()
         if (newDrop) {
@@ -93,10 +101,9 @@ export function DropForm({ initialDrop }: DropFormProps) {
               quantity_available: product.quantity_available,
             })
           }
+          router.push(`/admin/drops/${newDrop.id}`)
         }
       }
-
-      router.push("/admin/drops")
     } catch (err: unknown) {
       setError(err instanceof Error ? err.message : "Failed to save drop")
     } finally {
@@ -115,7 +122,7 @@ export function DropForm({ initialDrop }: DropFormProps) {
             </Link>
           </Button>
           <h1 className="text-3xl font-bold text-trichome-frost">
-            {initialDrop ? "Edit Drop" : "Schedule Drop"}
+            {initialDrop ? `Edit: ${initialDrop.name}` : "Schedule Drop"}
           </h1>
         </div>
         <Button onClick={handleSave} disabled={isSaving} className="bg-bud-purple hover:bg-bud-purple/80 text-white">
@@ -132,10 +139,10 @@ export function DropForm({ initialDrop }: DropFormProps) {
         </CardHeader>
         <CardContent className="space-y-5">
           <div>
-            <Label className="text-trichome-frost">Title *</Label>
+            <Label className="text-trichome-frost">Drop Name *</Label>
             <Input
-              value={title}
-              onChange={(e) => setTitle(e.target.value)}
+              value={name}
+              onChange={(e) => setName(e.target.value)}
               placeholder="e.g., Summer Collection Drop"
               className="bg-cosmic-black/50 border-bud-purple/30 text-trichome-frost mt-1"
             />
@@ -148,16 +155,6 @@ export function DropForm({ initialDrop }: DropFormProps) {
               onChange={(e) => setDescription(e.target.value)}
               placeholder="Describe this drop..."
               className="bg-cosmic-black/50 border-bud-purple/30 text-trichome-frost min-h-[100px] mt-1"
-            />
-          </div>
-
-          <div>
-            <Label className="text-trichome-frost">Featured Image URL</Label>
-            <Input
-              value={featuredImage}
-              onChange={(e) => setFeaturedImage(e.target.value)}
-              placeholder="https://..."
-              className="bg-cosmic-black/50 border-bud-purple/30 text-trichome-frost mt-1"
             />
           </div>
 
@@ -187,13 +184,25 @@ export function DropForm({ initialDrop }: DropFormProps) {
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent className="bg-cosmic-black border-bud-purple/30">
-                  <SelectItem value="draft">Draft</SelectItem>
                   <SelectItem value="scheduled">Scheduled</SelectItem>
-                  <SelectItem value="live">Live</SelectItem>
+                  <SelectItem value="active">Active</SelectItem>
                   <SelectItem value="ended">Ended</SelectItem>
                 </SelectContent>
               </Select>
             </div>
+          </div>
+
+          <div className="flex items-center gap-3 pt-2 border-t border-bud-purple/20">
+            <input
+              type="checkbox"
+              id="vip_only"
+              checked={vipOnly}
+              onChange={(e) => setVipOnly(e.target.checked)}
+              className="w-4 h-4 accent-bud-purple"
+            />
+            <label htmlFor="vip_only" className="text-trichome-frost text-sm cursor-pointer">
+              VIP Members Only
+            </label>
           </div>
         </CardContent>
       </Card>
