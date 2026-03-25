@@ -15,6 +15,7 @@ import {
   Upload,
   Flag,
   Shield,
+  Tag,
 } from "lucide-react"
 
 interface AdminSidebarProps {
@@ -33,6 +34,7 @@ export function AdminSidebar({ userProfile, isOwner }: AdminSidebarProps) {
     { name: "Dashboard", href: "/admin", icon: LayoutDashboard },
     { name: "Products", href: "/admin/products", icon: Package },
     { name: "Drops", href: "/admin/drops", icon: Zap },
+    { name: "Promotions", href: "/admin/promotions", icon: Tag },
     { name: "Orders", href: "/admin/orders", icon: ShoppingCart },
     { name: "Users", href: "/admin/users", icon: Users },
     { name: "VIP Members", href: "/admin/vip", icon: Crown },
